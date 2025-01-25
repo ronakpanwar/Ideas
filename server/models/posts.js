@@ -6,11 +6,15 @@ const postSchema = new mongoose.Schema({
         ref:'User',
         required:true
     },
+    img:{
+        type:String,
+        required:true,
+    },
     title:{
         type:String,
         required:true,
     },
-    discription:{
+    description:{
         type:String,
         required:true,
     },
@@ -23,8 +27,8 @@ const postSchema = new mongoose.Schema({
         required:true,
     }, 
     vision:{
-        type:String,
-        required:true,
+        type:String
+        
     },
     targetAudience:[{
         type:String,

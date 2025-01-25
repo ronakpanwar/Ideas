@@ -6,11 +6,6 @@ const messageSchema = new mongoose.Schema({
         ref:'User',
         required:true
     },
-    postId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Post',
-        required:true
-    },
     email:{
         type:String ,
         required:true
