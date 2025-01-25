@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
         linkdinId:{
             type:String
         },
-        TwitterId:{
+        twitterId:{
             type:String
         },
         gitId:{
