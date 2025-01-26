@@ -55,7 +55,7 @@ const signIn = async(req,res)=>{
             })
            } 
 
-          const user = await User.findOne({email});
+          let user = await User.findOne({email});
           if(!user){
             return res.status(404).json({
                 success:false,
@@ -73,6 +73,14 @@ const signIn = async(req,res)=>{
 
           const Token = {
             id : user._id
+          }
+
+          user = {
+           id:user._id,
+           name:user.name,
+           userName:user.userName,
+           email:user.email,
+           profile:user.profile,
           }
  
           const token = jwt.sign(Token , process.env.SECRET_KEY , { expiresIn:'1d'});
