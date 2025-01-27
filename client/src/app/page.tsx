@@ -1,4 +1,5 @@
 import HeroSection from "@/components/HeroSection";
+import IdeasBox from "@/components/IdeasBox";
 import SearchSection from "@/components/SearchSection";
 
 
@@ -7,6 +8,7 @@ export default function Home() {
     <div className="">
       <HeroSection/>
       <SearchSection/>
+      <IdeasBox/>
     </div>
   );
 }

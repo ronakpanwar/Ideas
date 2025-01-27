@@ -15,22 +15,6 @@ import { CgProfile } from "react-icons/cg";
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
 
-interface profile {
-    bio?: string;
-    img?: string;
-    instaId?: string;
-    linkdinId?: string;
-    twitterId?: string;
-    gitId?: string;
-  }
-  
-  interface user {
-    name: string;
-    userName: string;
-    email: string;
-    profile: profile;
-  }
-
 
 const Navbar = () => {
   
@@ -38,7 +22,7 @@ const Navbar = () => {
 
 
     return (
-        <div className='sticky top-0 rounded-lg  px-4 py-4 flex items-center justify-around'>
+        <div className='sticky top-0  bg-white  px-4 py-4 flex items-center justify-around'>
             <div className='text-3xl flex gap-3'>
                 <span ><Image src={light}
                     width={35}
@@ -72,7 +56,7 @@ const Navbar = () => {
                                 <AvatarFallback>RN</AvatarFallback>
                             </Avatar>
                             <Popover>
-                                <PopoverTrigger>{user?.name}</PopoverTrigger>
+                                <PopoverTrigger className='text-sm'>{user?.userName}</PopoverTrigger>
                                 <PopoverContent>
                                     <Link className='flex text-md items-center gap-2' href={'/profile'}> <span className='text-lg'><CgProfile /></span> Profile</Link>
                                 </PopoverContent>

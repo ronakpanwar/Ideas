@@ -11,21 +11,41 @@ interface profile{
 }
 
 interface user {
-    id:string,
+    _id:string,
     name:string,
     userName:string,
     email:string , 
-    profile:profile
+    profile:profile,
+    password?:string,
+    createdAt?:Date,  
+    updatedAt?:Date
+  }
+
+  interface post {
+     _id:string
+      userId:user,
+      title:string,
+      img:string,
+      description:string,
+      problem:string,
+      solution:string,
+      targetAudience:[],
+      createdAt?:Date,  
+      updatedAt?:Date
   }
 
   interface userState {
     loading:boolean,
     user:user | null,
+    posts:post[] ,
+    selectedPost:post | null
   }
 
   const initialState :userState = {
     loading: false,
     user: null,
+    posts:[],
+    selectedPost:null
   };
 
   const userSlice = createSlice({
@@ -39,8 +59,14 @@ interface user {
       setUser: (state, action: PayloadAction<user | null>) => {
         state.user = action.payload;
       },
+      setPosts: (state , action: PayloadAction<post[]>) => {
+        state.posts = action.payload ;
+      },
+      setSelectedPost: (state , action :PayloadAction<post>)=>{
+        state.selectedPost = action.payload;
+      }
     },
   });
   
-  export const { setLoading, setUser } = userSlice.actions;
+  export const { setLoading, setUser , setPosts , setSelectedPost} = userSlice.actions;
   export default userSlice.reducer;

@@ -1,30 +1,34 @@
 const Post = require('../models/posts');
 const { findById } = require('../models/user');
+const cloudinary = require('../utils/cloudindury');
+const getDataUri = require('../utils/datauri')
 
 
 const addPost = async(req,res)=>{
     try {
         const userId = req.id;
-        const {title ,img, description , problem , solution , targetAudience} = req.body;
-
-
-        if(!title || !img || !description || !problem || !solution  || !targetAudience){
+        const {title , description , problem , solution , targetAudience} = req.body;
+       
+        if(!title  || !description || !problem || !solution  || !targetAudience){
             return res.status(401).json({
                 success:false,
                 message:"somthing is missing.."
             })
         }
 
-       
+            const file = req.file;
+            const fileUrl = getDataUri(file)
+            const cloudresponse = await cloudinary.uploader.upload(fileUrl.content)
 
-        const post = await Post.create({
-            userId,
-            img,
+     
+       await Post.create({
+            userId,     
             title,
             description,
             problem,
             solution,
             targetAudience:targetAudience.split(","),
+            img:cloudresponse.secure_url,
             
         });
 
@@ -41,11 +45,13 @@ const addPost = async(req,res)=>{
     }
 }
 
+
 const allPosts = async(req,res)=>{
     try {
 
         const posts = await Post.find().populate({path:'userId'});
         return res.status(200).json({
+            success:true,
             posts
         })
         
@@ -97,7 +103,8 @@ const postById = async(req,res)=>{
         }
 
         return res.status(200).json({
-            post
+            success:true,
+            post  
         })
         
     } catch (error) {
