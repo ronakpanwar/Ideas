@@ -33,19 +33,44 @@ interface user {
       createdAt?:Date,  
       updatedAt?:Date
   }
+  interface userPost {
+    _id:string
+     userId:string,
+     title:string,
+     img:string,
+     description:string,
+     problem:string,
+     solution:string,
+     targetAudience:[],
+     createdAt?:Date,  
+     updatedAt?:Date
+ }
+
+ interface msg{
+  _id:string,
+  userId:string,
+  email:string,
+  msg:string,
+  createdAt?:Date,  
+  updatedAt?:Date 
+ }
 
   interface userState {
     loading:boolean,
     user:user | null,
     posts:post[] ,
-    selectedPost:post | null
+    selectedPost:post | null,
+    userPost:userPost[] ,
+    userMsg:msg[]
   }
 
   const initialState :userState = {
     loading: false,
     user: null,
     posts:[],
-    selectedPost:null
+    selectedPost:null,
+    userPost:[],
+    userMsg:[]
   };
 
   const userSlice = createSlice({
@@ -64,9 +89,15 @@ interface user {
       },
       setSelectedPost: (state , action :PayloadAction<post>)=>{
         state.selectedPost = action.payload;
+      },
+      setUserPost:(state , action :PayloadAction<userPost[]>)=>{
+        state.userPost = action.payload;
+      },
+      setUserMsg :(state , action :PayloadAction<msg[]>)=>{
+        state.userMsg = action.payload;
       }
     },
   });
   
-  export const { setLoading, setUser , setPosts , setSelectedPost} = userSlice.actions;
+  export const { setLoading, setUser , setPosts , setSelectedPost , setUserPost , setUserMsg} = userSlice.actions;
   export default userSlice.reducer;

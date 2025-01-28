@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 const HeroSection = () => {
     return (
-        <div className='px-2 min-h-96 rounded-lg flex flex-col gap-3 items-center justify-center bg-gradient-to-r from-slate-400 from-10% via-slate-100 via-30% to-slate-400 to-90%'>
+        <div className='px-2 min-h-96  flex flex-col gap-3 items-center justify-center bg-gradient-to-r from-slate-400 from-10% via-slate-100 via-30% to-slate-400 to-90%'>
             <div className='text-6xl mb-7'>
                <h1 className='text-black flex gap-2 items-center justify-center'><span className='text-slate-900 mx-3'> Welcome to</span> <span><Image src={light} width={45} height={20} alt='light' /> </span>Ideas-<span className='text-orange-600 font-bold'>library</span></h1>
             </div>

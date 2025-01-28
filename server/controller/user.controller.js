@@ -2,6 +2,8 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const cloudinary = require('../utils/cloudindury');
+const getDataUri = require('../utils/datauri')
 
 
 const signUp = async(req,res)=>{
@@ -82,6 +84,7 @@ const signIn = async(req,res)=>{
            email:user.email,
            profile:user.profile,
           }
+          
  
           const token = jwt.sign(Token , process.env.SECRET_KEY , { expiresIn:'1d'});
 
@@ -136,7 +139,11 @@ const updateProfile  = async(req,res)=>{
             })
         }
 
-        const user = await User.findById(userId);
+        const file = req.file;
+        const fileUrl = getDataUri(file)
+        const cloudresponse = await cloudinary.uploader.upload(fileUrl.content)
+
+        let user = await User.findById(userId);
         
         if(!user){
             return  res.status(404).json({
@@ -151,6 +158,7 @@ const updateProfile  = async(req,res)=>{
         if(instaId) user.profile.instaId = instaId;
         if(twitterId) user.profile.twitterId = twitterId;
         if(gitId) user.profile.gitId = gitId;
+        if(file) user.profile.img = cloudresponse.secure_url;
 
         await user.save();
 

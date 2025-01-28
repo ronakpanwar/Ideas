@@ -17,6 +17,7 @@ const sendMessage = async(req,res)=>{
             email,
             msg
         })
+        
 
         return res.status(201).json({
             success:true,
@@ -40,6 +41,7 @@ const getMyMessage = async(req,res)=>{
         const message = await Message.find({userId});
 
         return res.status(200).json({
+            success:true,
             message
         })
         

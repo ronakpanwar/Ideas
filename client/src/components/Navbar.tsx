@@ -10,19 +10,38 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "./ui/popover"
+import { LuLogOut } from "react-icons/lu";
 
 import { CgProfile } from "react-icons/cg";
-import { useSelector } from 'react-redux'
-import { RootState } from '@/redux/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '@/redux/store'
+import axios from 'axios'
+import { toast } from 'sonner'
+import { setUser, setUserMsg, setUserPost } from '@/redux/userSlice'
 
 
 const Navbar = () => {
-  
+
+    const dispatch = useDispatch<AppDispatch>();
     const user = useSelector((state: RootState) => state.user.user) ;
+
+    const handleLogOut = async()=>{
+        try {
+            const res = await axios.post('http://localhost:4000/api/user/log-out' );
+            if(res.data.success){
+                toast.success(res.data.message);
+                dispatch(setUser(null));
+                dispatch(setUserMsg([]));
+                dispatch(setUserPost([]));
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     return (
-        <div className='sticky top-0  bg-white  px-4 py-4 flex items-center justify-around'>
+        <div className='sticky top-0 relative z-20 bg-white  px-4 py-4 flex items-center justify-around'>
             <div className='text-3xl flex gap-3'>
                 <span ><Image src={light}
                     width={35}
@@ -52,13 +71,16 @@ const Navbar = () => {
                         </div>
                         <div className='flex gap-2'>
                             <Avatar>
-                                <AvatarImage src={'#'} />
+                                <AvatarImage src={user?.profile?.img ? user.profile.img : "#"} />
                                 <AvatarFallback>RN</AvatarFallback>
                             </Avatar>
                             <Popover>
                                 <PopoverTrigger className='text-sm'>{user?.userName}</PopoverTrigger>
                                 <PopoverContent>
-                                    <Link className='flex text-md items-center gap-2' href={'/profile'}> <span className='text-lg'><CgProfile /></span> Profile</Link>
+                                    <Link className='flex text-md my-1 items-center gap-2' href={'/profile'}> <span className='text-lg'><CgProfile /></span> Profile</Link>
+                                    <hr />
+                                    <button onClick={handleLogOut} className='flex gap-2 items-center my-1 text-sm'><LuLogOut  className='text-lg font-bold'/> Log Out</button>
+
                                 </PopoverContent>
                             </Popover>
                         </div>

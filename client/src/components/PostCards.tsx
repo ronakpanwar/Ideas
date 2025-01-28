@@ -15,7 +15,7 @@ const PostCard = ({post}) => {
         <CardHeader className='rounded-t-lg '>
           <Image
           className='w-full rounded-t-md'
-           width={320}
+           width={500}
             height={200}
             src={ post?.img ? post.img :temp}
             alt='postImage' />

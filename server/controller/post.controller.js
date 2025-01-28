@@ -65,10 +65,9 @@ const allPosts = async(req,res)=>{
 
 const userPosts = async(req,res)=>{
     try {
-        const userId = req.params.id;
+        const userId = req.id;
         
         const posts = await Post.find({userId:userId});
-
         if(!posts){
             return res.status(400).json({
     
@@ -77,7 +76,7 @@ const userPosts = async(req,res)=>{
         }
 
         return res.status(200).json({
-    
+           success:true,
             posts,
         })
         
