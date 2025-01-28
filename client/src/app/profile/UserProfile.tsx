@@ -37,17 +37,17 @@ interface data {
 
 const UserProfile = () => {
 
-  const dispatch = useDispatch<AppDispatch>()
+    const dispatch = useDispatch<AppDispatch>()
     const user = useSelector((store: RootState) => store.user.user)
     const loading = useSelector((store: RootState) => store.user.loading);
 
     const [userData, setUserData] = useState<data>({
         userName: '',
         bio: '',
-        instaId:'',
+        instaId: '',
         gitId: '',
         linkdinId: '',
-        twitterId:''
+        twitterId: ''
     })
     const [image, setImage] = useState<File | null>(null);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -64,108 +64,110 @@ const UserProfile = () => {
     };
 
 
-    const handleSubmit = async(e:React.FormEvent<HTMLFormElement>)=>{
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("userName", userData.userName);
         formData.append("bio", userData.bio);
-        formData.append("instaId" ,userData.instaId);
+        formData.append("instaId", userData.instaId);
         formData.append("gitId", userData.gitId);
-        formData.append("linkdinId" , userData.linkdinId);
-        formData.append("twitter" , userData.twitterId)
-        if(image)formData.append("img" , image);
+        formData.append("linkdinId", userData.linkdinId);
+        formData.append("twitter", userData.twitterId)
+        if (image) formData.append("img", image);
 
         try {
-          dispatch(setLoading(true));
+            dispatch(setLoading(true));
 
-          const res = await axios.post('http://localhost:4000/api/user/profile/update', formData,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-                withCredentials: true
+            const res = await axios.post('http://localhost:4000/api/user/profile/update', formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    withCredentials: true
+                }
+            );
+            if (res.data.success) {
+                toast.success(res.data.message);
+                dispatch(setUser(res.data.user));
             }
-        );
-        if(res.data.success){
-            toast.success(res.data.message);
-            dispatch(setUser(res.data.user));
-        }
-            
-        } catch (error:any) {
+
+        } catch (error: any) {
             toast.error(error?.response?.data?.message || "somthing is Wrong")
-        }finally{
+        } finally {
             dispatch(setLoading(false));
         }
 
     }
 
 
-   
 
-    useEffect(()=>{
-        const getUserPost = async()=>{
+
+    useEffect(() => {
+        const getUserPost = async () => {
             try {
-                const res = await axios.get('http://localhost:4000/api/post/user-post' , {
-                    withCredentials:true,
+                const res = await axios.get('http://localhost:4000/api/post/user-post', {
+                    withCredentials: true,
                 });
-                if(res.data.success){
+                if (res.data.success) {
                     dispatch(setUserPost(res.data.posts));
                 }
             } catch (error) {
                 console.log(error)
-            }}
+            }
+        }
 
-        
+
 
         getUserPost();
-    },[ dispatch])
+    }, [dispatch])
 
-    useEffect(()=>{
-        const getUserMsg = async()=>{
+    useEffect(() => {
+        const getUserMsg = async () => {
             try {
-                const res = await axios.get('http://localhost:4000/api/message/my' , {
-                    withCredentials:true,
+                const res = await axios.get('http://localhost:4000/api/message/my', {
+                    withCredentials: true,
                 });
-                if(res.data.success){
+                if (res.data.success) {
                     dispatch(setUserMsg(res.data.message));
                 }
             } catch (error) {
                 console.log(error)
-            }}
+            }
+        }
 
-        
 
-     getUserMsg();
-    },[ dispatch])
+
+        getUserMsg();
+    }, [dispatch])
 
 
 
 
     return (
         <div className='flex items-center justify-center bg-slate-200'>
-            <div className='w-3/4 bg-white p-4 shadow-lg border-1 border-zinc-600 m-2 rounded-lg'>
-                <div className='flex gap-10 m-10'>
-                    <div className='w-1/3'>
-                        <Card className='bg-orange-500 flex flex-col items-center gap-6 p-8 shadow-lg relative '>
+            <div className='w-full md:w-[80%] bg-white p-4 shadow-lg border-1 border-zinc-600 m-2 rounded-lg'>
+                <div className='flex flex-col items-center sm:flex-row gap-5 md:gap-8 m-10'>
+                    <div className='w-[75%] sm:w-1/2  md:w-1/3'>
+                        <Card className='bg-orange-500 flex flex-col items-center gap-6 p-8 shadow-lg relative w-full'>
                             <Avatar className="h-20 w-20 my-4 border-2  border-black  md:h-40 md:w-40 rounded-full shadow-md">
-                                <AvatarImage className='z-10' src={user?.profile?.img ? user?.profile?.img : '#'} 
-                                 alt="User Avatar"/>
+                                <AvatarImage className='z-10 object-cover ' src={user?.profile?.img ? user?.profile?.img : '#'}
+                                    alt="User Avatar" />
                             </Avatar>
 
-                            <CardTitle>{user?.userName}</CardTitle>
+                            <CardTitle className='text-sm  md:text-xl'>{user?.userName}</CardTitle>
                         </Card>
                     </div>
-                    <div className='flex flex-col py-4 ml-20 '>
-                        <h1 className='text-3xl font-bold '>{user?.name}</h1>
-                        <p className='text-md text-slate-800'>{user?.profile?.bio}</p>
+                    <div className='flex flex-col py-2 md:py-4 md:ml-20 items-start '>
+                        <h1 className='text-xl md:text-3xl font-bold '>{user?.name}</h1>
+                        <p className='text-sm md:text-md text-slate-800'>{user?.profile?.bio}</p>
 
-                        <div className='flex items-center justify-center text-lg gap-1 mt-8'>
+                        <div className='flex items-center justify-center text-sm md:text-lg gap-1 mt-6 md:mt-8'>
                             <SiGmail />-
-                            <p className='cursor-pointer font-semibold text-lg'>
+                            <p className='cursor-pointer font-semibold text-sm md:text-lg'>
                                 {user?.email} </p>
                         </div>
 
-                        <div className='flex gap-10 text-3xl mt-8 '>
+                        <div className='flex gap-10 text-xl md:text-3xl mt-4 md:mt-8 '>
                             <Link href={user?.profile?.gitId ? user?.profile?.gitId : '/#'}> <FaGithub /></Link>
 
                             <Link href={user?.profile?.linkdinId ? user?.profile?.linkdinId : '/#'}><FaLinkedin /></Link>
@@ -174,12 +176,12 @@ const UserProfile = () => {
 
                             <Link href={user?.profile?.instaId ? user?.profile?.instaId : '/#'}><FaInstagramSquare /></Link>
                         </div>
-                        <div className='    mt-12'>
+                        <div className=' mt-6   md:mt-12'>
                             <Dialog>
                                 <DialogTrigger asChild>
                                     <Button variant="outline" className='w-full border-2 border-black' ><FiEdit2 /> Edit Profile</Button>
                                 </DialogTrigger>
-                                <DialogContent className="sm:max-w-[450px]">
+                                <DialogContent className="max-w-[300px] md:max-w-[450px]">
                                     <DialogTitle className='text-md font-bold text-center'>Edit Profile </DialogTitle>
                                     <form action="" onSubmit={handleSubmit}>
                                         <div className='py-1'>
@@ -257,7 +259,7 @@ const UserProfile = () => {
                                                 placeholder='Enter linkdin url'
                                             />
                                         </div>
-                                        <Button  className='w-full mt-2' type='submit'>
+                                        <Button className='w-full mt-2' type='submit'>
                                             {
                                                 loading ? (<Loader2 className="animate-spin" />) : (' Edit Profile')
                                             }
@@ -273,7 +275,7 @@ const UserProfile = () => {
 
 
                 <div>
-                    <UserPosts/>
+                    <UserPosts />
                 </div>
 
             </div>

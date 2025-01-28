@@ -14,7 +14,7 @@ const PostCard = ({post}) => {
       <Card className='flex flex-col items-center gap-2 shadow-lg hover:shadow-xl ' >
         <CardHeader className='rounded-t-lg '>
           <Image
-          className='w-full rounded-t-md'
+          className='w-full rounded-t-md object-cover h-auto'
            width={500}
             height={200}
             src={ post?.img ? post.img :temp}

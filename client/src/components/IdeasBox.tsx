@@ -30,7 +30,7 @@ const IdeasBox = () => {
     return (
         <div>
             <h1></h1>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-10 my-20'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-5 md:mx-10 my-20'>
 
 
                 {

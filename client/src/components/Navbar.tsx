@@ -23,12 +23,12 @@ import { setUser, setUserMsg, setUserPost } from '@/redux/userSlice'
 const Navbar = () => {
 
     const dispatch = useDispatch<AppDispatch>();
-    const user = useSelector((state: RootState) => state.user.user) ;
+    const user = useSelector((state: RootState) => state.user.user);
 
-    const handleLogOut = async()=>{
+    const handleLogOut = async () => {
         try {
-            const res = await axios.post('http://localhost:4000/api/user/log-out' );
-            if(res.data.success){
+            const res = await axios.post('http://localhost:4000/api/user/log-out');
+            if (res.data.success) {
                 toast.success(res.data.message);
                 dispatch(setUser(null));
                 dispatch(setUserMsg([]));
@@ -41,9 +41,10 @@ const Navbar = () => {
 
 
     return (
-        <div className='sticky top-0 relative z-20 bg-white  px-4 py-4 flex items-center justify-around'>
-            <div className='text-3xl flex gap-3'>
+        <div className='sticky top-0   z-20 bg-white  px-4 py-4 flex items-center justify-between md:justify-around'>
+            <div className='text-md sm:text-xl md:text-3xl flex gap-3 items-center'>
                 <span ><Image src={light}
+                    className='w-5 h-5 md:w-10 md:h-10'
                     width={35}
                     height={20}
                     alt="Picture of the author" /></span>
@@ -51,7 +52,7 @@ const Navbar = () => {
             </div>
             <div>
                 {user === null ? (
-                    <div className='flex gap-6 items-center'>
+                    <div className='flex gap-2 md:gap-6 items-center'>
                         <div>
                             <Button variant="outline" className='bg-orange-600 hover:bg-orange-500 text-black'>
                                 <Link href={'/signin'}>Sign In </Link>  </Button>
@@ -63,23 +64,26 @@ const Navbar = () => {
 
                     </div>
                 ) : (
-                    <div className='flex gap-6 items-center '>
+                    <div className='flex gap-2 md:gap-6 items-center '>
                         <div>
                             <Button variant="ghost">
-                                <Link href={'/create'} className='font-bold text-lg text-orange-600'> Create </Link>
+                                <Link href={'/create'} className='font-bold text-sm md:text-lg text-orange-600'> Create </Link>
                             </Button>
                         </div>
                         <div className='flex gap-2'>
-                            <Avatar>
-                                <AvatarImage src={user?.profile?.img ? user.profile.img : "#"} />
-                                <AvatarFallback>RN</AvatarFallback>
-                            </Avatar>
+
                             <Popover>
-                                <PopoverTrigger className='text-sm'>{user?.userName}</PopoverTrigger>
+                                <PopoverTrigger className='flex gap-1 items-center sm:text-sm mr-2'>
+                                    <Avatar className=''>
+                                        <AvatarImage className='object-cover  ' src={user?.profile?.img ? user.profile.img : "#"} />
+                                        <AvatarFallback>RN</AvatarFallback>
+                                    </Avatar>
+                                    <h1 className='hidden md:text-lg md:block'>{user?.userName}</h1>
+                                    </PopoverTrigger>
                                 <PopoverContent>
                                     <Link className='flex text-md my-1 items-center gap-2' href={'/profile'}> <span className='text-lg'><CgProfile /></span> Profile</Link>
                                     <hr />
-                                    <button onClick={handleLogOut} className='flex gap-2 items-center my-1 text-sm'><LuLogOut  className='text-lg font-bold'/> Log Out</button>
+                                    <button onClick={handleLogOut} className='flex gap-2 items-center my-1 text-sm'><LuLogOut className='text-lg font-bold' /> Log Out</button>
 
                                 </PopoverContent>
                             </Popover>

@@ -37,7 +37,7 @@ const UserPosts = () => {
                 </Button>
             </div>
 
-            <div className={`p-10 mt-6 ${open === 'post' ? '' : 'hidden'} `}>
+            <div className={`p-2 md:p-10 mt-6 ${open === 'post' ? '' : 'hidden'} `}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     {
                         posts.length > 0 ? (posts.map((post) => (
@@ -50,14 +50,14 @@ const UserPosts = () => {
                     }
                 </div>
             </div>
-            <div className={`p-10 mt-6 ${open === 'msg' ? '' : 'hidden'} `}>
+            <div className={`p-2 md:p-10 mt-6 ${open === 'msg' ? '' : 'hidden'} `}>
 
                 {
                     msgs.length>0 ? (newMsg.map((msg) => (
-                        <div key={msg._id} className="flex items-center justify-center border-2 rounded-2xl shadow-lg m-6">
-                            <div className="p-4 w-3/4">
-                                <h2 className="text-xl font-bold">Email - {msg.email} </h2>
-                                <p className="text-md text-slate-900 my-2">{msg.msg}</p>
+                        <div key={msg._id} className="flex items-center justify-center border-2 rounded-2xl shadow-lg m-2 md:m-6">
+                            <div className="p-4 w-full md:w-3/4">
+                                <h2 className= "text-md md:text-xl font-bold">Email - {msg.email} </h2>
+                                <p className="text-sm md:text-md text-slate-900 my-2">{msg.msg}</p>
                             </div>
                         </div>
                     ))):(

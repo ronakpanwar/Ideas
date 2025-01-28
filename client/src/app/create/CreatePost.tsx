@@ -100,8 +100,8 @@ const CreatePost = () => {
 
     return (
         <div className='flex  justify-center mt-10'>
-            <div className='w-1/2'>
-                <h1 className='text-4xl text-center mb-6'>Share your ideas with us...</h1>
+            <div className='w-3/4 md:w-1/2'>
+                <h1 className= 'text-2xl md:text-4xl text-center mb-6'>Share your ideas with us...</h1>
                 <form action="" onSubmit={handleSubmit} className='text-3xl'>
                     <div className='py-2'>
                         <Label htmlFor='title' className='font-bold text-lg ' > Title </Label>

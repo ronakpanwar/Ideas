@@ -89,8 +89,8 @@ const Page = () => {
     }, [id, dispatch])
 
     return (
-        <div className='flex items-center justify-center px-10'>
-            <div className='w-3/4'>
+        <div className='flex items-center justify-center px-5 md:px-10'>
+            <div className='w-[90%] md:w-3/4'>
                 <div>
                     <Image
                         className='w-full'
@@ -101,25 +101,25 @@ const Page = () => {
                     />
                 </div>
                 <div className='flex flex-col gap-10 my-10'>
-                    <h1 className='text-3xl font-bold'>{post?.title}</h1>
+                    <h1 className='text-xl sm:text-2xl md:text-3xl font-bold'>{post?.title}</h1>
                     <div className='' >
-                        <h2 className='text-xl font-bold' >About Start Up -</h2>
-                        <p className='text-md mt-2 text-slate-700'>{post?.description}</p>
+                        <h2 className='test-md sm:text-lg md:text-xl font-bold' >About Start Up -</h2>
+                        <p className='text-sm md:text-md mt-2 text-slate-700'>{post?.description}</p>
                     </div>
                     <div>
-                        <h2 className='text-xl font-bold'>Problem Area</h2>
-                        <p className='text-md mt-2 text-slate-700'>{post?.problem}</p>
+                        <h2 className='test-md sm:text-lg md:text-xl font-bold'>Problem Area</h2>
+                        <p className='text-sm md:text-md mt-2 text-slate-700'>{post?.problem}</p>
                     </div>
                     <div>
-                        <h2 className='text-xl font-bold' >Solution </h2>
-                        <p className='text-md mt-2 text-slate-700'>{post?.solution}</p>
+                        <h2 className='test-md sm:text-lg md:text-xl font-bold' >Solution </h2>
+                        <p className='text-sm md:text-md mt-2 text-slate-700'>{post?.solution}</p>
                     </div>
                     <div>
-                        <h2 className='text-xl font-bold'>Target Audience</h2>
-                        <ol className='text-md my-2 text-slate-700'>
+                        <h2 className='test-md sm:text-lg md:text-xl font-bold'>Target Audience</h2>
+                        <ol className='text-sm md:text-md my-2 text-slate-700'>
                             {
                                 post?.targetAudience.map((p, index) => (
-                                    <li key={index} >{p}</li>
+                                    <li key={index} >-{p}</li>
                                 ))
                             }
 
@@ -129,12 +129,12 @@ const Page = () => {
 
                 </div>
                 <div>
-                    <h1 className='text-2xl font-bold my-6'>Founder - </h1>
-                    <div className='flex gap-20'>
-                        <div className='w-1/4'>
+                    <h1 className='text-xl md:text-2xl font-bold my-6'>Founder - </h1>
+                    <div className='flex flex-col items-center sm:flex-row gap-10 md:gap-20'>
+                        <div className='w-[75%] sm:w-1/2 md:w-1/3'>
                             <Card className='flex flex-col justify-center items-center p-8 gap-2 bg-orange-500'>
                                 <Image
-                                    className='rounded-full border-2 border-black w-full shadow-xl '
+                                    className='rounded-full border-2 object-cover h-22 md:h-40 border-black w-full shadow-xl '
                                     src={post?.userId?.profile?.img ? post?.userId?.profile?.img : userImg}
                                     width={150}
                                     height={30}
@@ -144,16 +144,16 @@ const Page = () => {
                             </Card>
                         </div>
                         <div>
-                            <div className='flex flex-col gap-1 my-4'>
-                                <h1 className='text-2xl font-bold'>{post?.userId?.name}</h1>
-                                <p className='text-md text-slate-700'> {post?.userId?.profile?.bio}</p>
+                            <div className='flex flex-col gap-1 items-start my-4'>
+                                <h1 className='text-xl sm:text-2xl font-bold'>{post?.userId?.name}</h1>
+                                <p className='text-sm sm:text-md text-slate-700'> {post?.userId?.profile?.bio}</p>
                                 <div className='flex items-center justify-center gap-1 mt-4'>
                                     <SiGmail />-
                                     <p className='cursor-pointer font-semibold text-md'>
                                         {post?.userId?.email} </p>
                                 </div>
                             </div>
-                            <div className='mt-12'>
+                            <div className='mt-6 md:mt-12'>
                                 <h1 className='font-bold'>Follow on -</h1>
                                 <div className='flex gap-8 text-3xl mt-4 '>
                                     <Link href={post?.userId?.profile?.gitId ? post?.userId?.profile?.gitId : '/#'}> <FaGithub /></Link>
@@ -172,15 +172,15 @@ const Page = () => {
                     </div>
                 </div>
 
-                <div className='mt-10'>
-                    <h1 className='text-2xl font-bold '>To Contect With Founder -</h1>
+                <div className='mt-10 mb-20'>
+                    <h1 className='text-xl md:text-2xl font-bold '>To Contect With Founder -</h1>
 
 
-                    <div className=' flex items-center p-4 gap-10'>
+                    <div className=' flex flex-col sm:flex-row items-center p-4 gap-10'>
 
-                        <p className='text-md text-slate-700 w-1/3'>If you like start Up idea and you wanna join with in , So sent message to the founder with your active email Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur fuga magni molestiae neque nihil debitis! </p>
+                        <p className='text-sm md:text-md text-slate-700 w-full sm:w-1/2 md:w-1/3'>If you like start Up idea and you wanna join with in , So sent message to the founder with your active email Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur fuga magni molestiae neque nihil debitis! </p>
 
-                        <form action="" onSubmit={handleSubmit} className='flex flex-col gap-3 mt-4 w-1/2' >
+                        <form action="" onSubmit={handleSubmit} className='flex flex-col gap-3 mt-4 w-full sm:w-3/4 md:w-1/2' >
 
                             <Input
                                 className='border-zinc-800 rounded-md border-2  w-full focus-visible:ring-1 focus-visible:ring-ring shadow-md'
