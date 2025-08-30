@@ -50,11 +50,30 @@ const Navbar = () => {
                     alt="Picture of the author" /></span>
                 <Link href={'/'}><h1> Ideas-<span className='text-orange-600 font-bold'>library</span></h1></Link>
             </div>
-            <div>
+            <div className='flex ' >
+                <div className='flex gap-2'>
+                    <div>
+                        <Button variant="ghost" className=''>
+                            <Link href={'/#'}>Home </Link>  
+                        </Button>
+                    </div>
+                    <div>
+                        <Button variant="ghost" className=''>
+                            <Link href={'/#'}>Browse Ideas </Link>  
+                        </Button>
+                    </div>
+                    <div>
+                        <Button variant="ghost" className=''>
+                            <Link href={'/#'}>About </Link>  
+                        </Button>
+                    </div>
+                   
+                </div>
                 {user === null ? (
-                    <div className='flex gap-2 md:gap-6 items-center'>
-                        <div>
-                            <Button variant="outline" className='bg-orange-600 hover:bg-orange-500 text-black'>
+
+                    <div className='flex gap-2 md:gap-2 items-center'>
+                        <div className=''>
+                            <Button variant="outline" className='bg-orange-600 hover:bg-orange-500 text-black '>
                                 <Link href={'/signin'}>Sign In </Link>  </Button>
                         </div>
                         <div>
@@ -65,11 +84,11 @@ const Navbar = () => {
                     </div>
                 ) : (
                     <div className='flex gap-2 md:gap-6 items-center '>
-                        <div>
+                        {/* <div>
                             <Button variant="ghost">
-                                <Link href={'/create'} className='font-bold text-sm md:text-lg text-orange-600'> Create </Link>
+                                <Link href={'/create'} className='font-bold text-sm md:text-xl text-orange-600'> Create </Link>
                             </Button>
-                        </div>
+                        </div> */}
                         <div className='flex gap-2'>
 
                             <Popover>
@@ -79,7 +98,7 @@ const Navbar = () => {
                                         <AvatarFallback>RN</AvatarFallback>
                                     </Avatar>
                                     <h1 className='hidden md:text-lg md:block'>{user?.userName}</h1>
-                                    </PopoverTrigger>
+                                </PopoverTrigger>
                                 <PopoverContent>
                                     <Link className='flex text-md my-1 items-center gap-2' href={'/profile'}> <span className='text-lg'><CgProfile /></span> Profile</Link>
                                     <hr />

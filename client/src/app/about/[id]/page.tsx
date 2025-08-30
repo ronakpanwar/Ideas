@@ -130,11 +130,11 @@ const Page = () => {
                 </div>
                 <div>
                     <h1 className='text-xl md:text-2xl font-bold my-6'>Founder - </h1>
-                    <div className='flex flex-col items-center sm:flex-row gap-10 md:gap-20'>
+                    <div className='flex flex-col items-center sm:flex-row sm:items-start gap-10 md:gap-20'>
                         <div className='w-[75%] sm:w-1/2 md:w-1/3'>
                             <Card className='flex flex-col justify-center items-center p-8 gap-2 bg-orange-500'>
                                 <Image
-                                    className='rounded-full border-2 object-cover h-22 md:h-40 border-black w-full shadow-xl '
+                                    className='rounded-full border-2 object-cover h-22 md:aspect-square border-black w-full shadow-xl '
                                     src={post?.userId?.profile?.img ? post?.userId?.profile?.img : userImg}
                                     width={150}
                                     height={30}
@@ -145,7 +145,7 @@ const Page = () => {
                         </div>
                         <div>
                             <div className='flex flex-col gap-1 items-start my-4'>
-                                <h1 className='text-xl sm:text-2xl font-bold'>{post?.userId?.name}</h1>
+                                <h1 className='text-xl sm:text-3xl font-bold'>{post?.userId?.name}</h1>
                                 <p className='text-sm sm:text-md text-slate-700'> {post?.userId?.profile?.bio}</p>
                                 <div className='flex items-center justify-center gap-1 mt-4'>
                                     <SiGmail />-
@@ -172,13 +172,13 @@ const Page = () => {
                     </div>
                 </div>
 
-                <div className='mt-10 mb-20'>
+                <div className='mt-14 mb-20'>
                     <h1 className='text-xl md:text-2xl font-bold '>To Contect With Founder -</h1>
 
 
-                    <div className=' flex flex-col sm:flex-row items-center p-4 gap-10'>
+                    <div className=' flex flex-col sm:flex-row items-center sm:items-start py-4 gap-10'>
 
-                        <p className='text-sm md:text-md text-slate-700 w-full sm:w-1/2 md:w-1/3'>If you like start Up idea and you wanna join with in , So sent message to the founder with your active email Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur fuga magni molestiae neque nihil debitis! </p>
+                        <p className='text-sm md:text-md text-slate-700 py-3 w-full sm:w-1/2 md:w-1/3'>If you like start Up idea and you wanna join with in , So sent message to the founder with your active email Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur fuga magni molestiae neque nihil debitis! </p>
 
                         <form action="" onSubmit={handleSubmit} className='flex flex-col gap-3 mt-4 w-full sm:w-3/4 md:w-1/2' >
 
