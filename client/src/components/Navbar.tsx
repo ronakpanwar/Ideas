@@ -50,68 +50,69 @@ const Navbar = () => {
                     alt="Picture of the author" /></span>
                 <Link href={'/'}><h1> Ideas-<span className='text-orange-600 font-bold'>library</span></h1></Link>
             </div>
-            <div className='flex ' >
+            <div className='flex gap-2 items-center' >
                 <div className='flex gap-2'>
                     <div>
-                        <Button variant="ghost" className=''>
-                            <Link href={'/#'}>Home </Link>  
-                        </Button>
-                    </div>
-                    <div>
-                        <Button variant="ghost" className=''>
-                            <Link href={'/#'}>Browse Ideas </Link>  
-                        </Button>
-                    </div>
-                    <div>
-                        <Button variant="ghost" className=''>
-                            <Link href={'/#'}>About </Link>  
-                        </Button>
-                    </div>
-                   
+                        <Link href={'/#'}><Button variant="ghost" className='font-bold'>
+                            Home
+                        </Button> </Link>
                 </div>
-                {user === null ? (
+                <div>
+                    <Link href={'/#'}>
+                        <Button variant="ghost" className='font-bold'>
+                            Browse Ideas
+                        </Button></Link>
+                </div>
+                <div>
+                    <Link href={'/#'}><Button variant="ghost" className='font-bold'>
+                        About
+                    </Button></Link>
+                </div>
 
-                    <div className='flex gap-2 md:gap-2 items-center'>
-                        <div className=''>
-                            <Button variant="outline" className='bg-orange-600 hover:bg-orange-500 text-black '>
-                                <Link href={'/signin'}>Sign In </Link>  </Button>
-                        </div>
-                        <div>
-                            <Button variant="outline" className=''>
-                                <Link href={'/signup'}>Sign Up </Link>  </Button>
-                        </div>
-
-                    </div>
-                ) : (
-                    <div className='flex gap-2 md:gap-6 items-center '>
-                        {/* <div>
-                            <Button variant="ghost">
-                                <Link href={'/create'} className='font-bold text-sm md:text-xl text-orange-600'> Create </Link>
-                            </Button>
-                        </div> */}
-                        <div className='flex gap-2'>
-
-                            <Popover>
-                                <PopoverTrigger className='flex gap-1 items-center sm:text-sm mr-2'>
-                                    <Avatar className=''>
-                                        <AvatarImage className='object-cover  ' src={user?.profile?.img ? user.profile.img : "#"} />
-                                        <AvatarFallback>RN</AvatarFallback>
-                                    </Avatar>
-                                    <h1 className='hidden md:text-lg md:block'>{user?.userName}</h1>
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                    <Link className='flex text-md my-1 items-center gap-2' href={'/profile'}> <span className='text-lg'><CgProfile /></span> Profile</Link>
-                                    <hr />
-                                    <button onClick={handleLogOut} className='flex gap-2 items-center my-1 text-sm'><LuLogOut className='text-lg font-bold' /> Log Out</button>
-
-                                </PopoverContent>
-                            </Popover>
-                        </div>
-                    </div>
-                )
-                }
             </div>
+            {user === null ? (
+
+                <div className='flex gap-2 md:gap-2 items-center'>
+                    <div className=''>
+                        <Link href={'/signin'}><Button variant="outline" className='bg-orange-600 hover:bg-orange-500 text-black '>
+                            Sign In   </Button></Link>
+                    </div>
+                    <div>
+                        <Button variant="outline" className=''>
+                            <Link href={'/signup'}>Sign Up </Link>  </Button>
+                    </div>
+
+                </div>
+            ) : (
+                <div className='flex gap-2 items-center '>
+                    <div>
+                            <Button variant="ghost">
+                                <Link href={'/create'} className='font-bold  text-orange-600'> Post </Link>
+                            </Button>
+                        </div>
+                    <div className='flex gap-2'>
+
+                        <Popover>
+                            <PopoverTrigger className='flex gap-1 items-center sm:text-sm mr-2'>
+                                <Avatar className=''>
+                                    <AvatarImage className='object-cover  ' src={user?.profile?.img ? user.profile.img : "#"} />
+                                    <AvatarFallback>RN</AvatarFallback>
+                                </Avatar>
+                                {/* <h1 className='hidden md:text-lg md:block'>{user?.userName}</h1> */}
+                            </PopoverTrigger>
+                            <PopoverContent>
+                                <Link className='flex text-md my-1 items-center gap-2' href={'/profile'}> <span className='text-lg'><CgProfile /></span> Profile</Link>
+                                <hr />
+                                <button onClick={handleLogOut} className='flex gap-2 items-center my-1 text-sm'><LuLogOut className='text-lg font-bold' /> Log Out</button>
+
+                            </PopoverContent>
+                        </Popover>
+                    </div>
+                </div>
+            )
+            }
         </div>
+        </div >
     )
 }
 
