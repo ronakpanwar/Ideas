@@ -41,7 +41,7 @@ const UserPosts = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     {
                         posts.length > 0 ? (posts.map((post) => (
-                            <PostCard key={post._id} post={post} />
+                            <PostCard key={post._id} post={post} check={false} />
                         ))) : (
                             <div className=" ">
                                 <h1 className="">Not Post Yet..</h1>

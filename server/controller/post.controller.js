@@ -15,7 +15,7 @@ const addPost = async(req,res)=>{
                 message:"somthing is missing.."
             })
         }
-
+        
             const file = req.file;
             const fileUrl = getDataUri(file)
             const cloudresponse = await cloudinary.uploader.upload(fileUrl.content)

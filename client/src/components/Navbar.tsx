@@ -53,12 +53,12 @@ const Navbar = () => {
             <div className='flex gap-2 items-center' >
                 <div className='flex gap-2'>
                     <div>
-                        <Link href={'/#'}><Button variant="ghost" className='font-bold'>
+                        <Link href={'/'}><Button variant="ghost" className='font-bold'>
                             Home
                         </Button> </Link>
                 </div>
                 <div>
-                    <Link href={'/#'}>
+                    <Link href={'/browse'}>
                         <Button variant="ghost" className='font-bold'>
                             Browse Ideas
                         </Button></Link>

@@ -116,8 +116,6 @@ const UserProfile = () => {
             }
         }
 
-
-
         getUserPost();
     }, [dispatch])
 
