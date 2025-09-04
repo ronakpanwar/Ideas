@@ -26,8 +26,7 @@ const HeroSection = () => {
             </div>
             <div>
                 <Button onClick={() => {
-                    user ? (router.push("/create")) :
-                        (router.push("/signin"))
+                    router.push(user? "/create": "/signin")
                 }} className='bg-orange-500 hover:bg-orange-600'>
                     Share Your Idea
                 </Button>

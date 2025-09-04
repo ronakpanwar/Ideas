@@ -4,9 +4,9 @@ import { useParams } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store';
 import axios from 'axios';
-import { setLoading, setSelectedPost } from '@/redux/userSlice';
+import { setLoading } from '@/redux/userSlice';
 import Image from 'next/image';
-import temp from '../../../components/temp.jpg'
+// import temp from '../../../components/temp.jpg'
 import { Card, CardTitle } from '@/components/ui/card';
 import userImg from '../../profile.png'
 import { SiGmail } from "react-icons/si";
@@ -32,13 +32,49 @@ const Page = () => {
     const loading = useSelector((store: RootState) => store.user.loading);
 
     const { id } = useParams();
-    const post = useSelector((store: RootState) => store.user.selectedPost);
+    
     const dispatch = useDispatch<AppDispatch>()
 
     const [sendData, setSendData] = useState<data>({
         email: '',
         msg: ''
     })
+
+
+    interface profile{
+  bio?:string,
+    img?:string ,
+    linkdinId?:string,
+    instaId?:string ,
+    twitterId?:string ,
+    gitId?:string ,
+}
+
+    interface user {
+    _id:string,
+    name:string,
+    userName:string,
+    email:string , 
+    profile:profile,
+    password?:string,
+    createdAt?:Date,  
+    updatedAt?:Date
+  }
+
+  interface post {
+     _id:string
+      userId:user,
+      title:string,
+      img:string,
+      description:string,
+      problem:string,
+      solution:string,
+      targetAudience:[],
+      createdAt?:Date,  
+      updatedAt?:Date
+  }
+   
+   const [post , setPost] = useState<post>();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setSendData({
@@ -51,7 +87,7 @@ const Page = () => {
         e.preventDefault();
         try {
            dispatch(setLoading(true));
-            const res = await axios.post(`http://localhost:4000/api/message/send/${post?.userId?._id}` , sendData , {
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/message/send/${post?.userId?._id}` , sendData , {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -73,25 +109,42 @@ const Page = () => {
         })
     }
 
+    const [loadingPost , setLoadingPost] = useState(false);
+    
     useEffect(() => {
         const getPost = async () => {
-            try {
-                const res = await axios.get(`http://localhost:4000/api/post/${id}`);
+            try { 
+                setLoadingPost(true);
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/post/${id}`);
                 if (res.data.success) {
-                    dispatch(setSelectedPost(res.data.post));
+                    // dispatch(setSelectedPost(res.data.post));
+                    setPost(res.data.post);
                 }
             } catch (error: any) {
                 console.log(error)
+            }finally{
+                setLoadingPost(false);
             }
 
         }
         getPost();
-    }, [id, dispatch])
+    }, [id])
+   
+    if(loadingPost){
+         return (
+    <div className="flex items-center justify-center min-h-screen">
+      <Loader2 className="animate-spin w-8 h-8 text-gray-700" />
+      <span className="ml-2 text-gray-600">Loading post...</span>
+    </div>
+  );
+    }
+    
 
     return (
+         
         <div className='flex items-center justify-center px-5 md:px-10'>
             <div className='w-[90%] md:w-3/4'>
-                <div>
+                {/* <div>
                     <Image
                         className='w-full'
                         src={post?.img ? post?.img : temp}
@@ -99,7 +152,7 @@ const Page = () => {
                         height={400}
                         alt='image'
                     />
-                </div>
+                </div> */}
                 <div className='flex flex-col gap-10 my-10'>
                     <h1 className='text-xl sm:text-2xl md:text-3xl font-bold'>{post?.title}</h1>
                     <div className='' >
@@ -208,7 +261,8 @@ const Page = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
+    
     )
 }
 

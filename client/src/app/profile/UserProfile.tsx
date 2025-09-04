@@ -78,7 +78,7 @@ const UserProfile = () => {
         try {
             dispatch(setLoading(true));
 
-            const res = await axios.post('http://localhost:4000/api/user/profile/update', formData,
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/user/profile/update`, formData,
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -105,7 +105,7 @@ const UserProfile = () => {
     useEffect(() => {
         const getUserPost = async () => {
             try {
-                const res = await axios.get('http://localhost:4000/api/post/user-post', {
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/post/user-post`, {
                     withCredentials: true,
                 });
                 if (res.data.success) {
@@ -122,7 +122,7 @@ const UserProfile = () => {
     useEffect(() => {
         const getUserMsg = async () => {
             try {
-                const res = await axios.get('http://localhost:4000/api/message/my', {
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/message/my`, {
                     withCredentials: true,
                 });
                 if (res.data.success) {
@@ -132,8 +132,6 @@ const UserProfile = () => {
                 console.log(error)
             }
         }
-
-
 
         getUserMsg();
     }, [dispatch])

@@ -15,7 +15,7 @@ const IdeasBox = () => {
     useEffect(() => {
         const getPosts = async () => {
             try {
-                const res = await axios.get('http://localhost:4000/api/post/all-post');
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/post/all-post`);
                 if (res.data.success) {
                     dispatch(setPosts(res.data.posts));
                     setPostData(res.data.posts)

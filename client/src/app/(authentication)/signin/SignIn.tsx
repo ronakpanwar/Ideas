@@ -42,7 +42,7 @@ const SignIn = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            const res = await axios.post('http://localhost:4000/api/user/sign-in', data, {
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/user/sign-in`, data, {
                 headers: {
                     'Content-Type': 'application/json'
                 },

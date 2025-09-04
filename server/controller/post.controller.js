@@ -7,18 +7,18 @@ const getDataUri = require('../utils/datauri')
 const addPost = async(req,res)=>{
     try {
         const userId = req.id;
-        const {title , description , problem , solution , targetAudience} = req.body;
+        const {title , description , problem , solution , targetAudience , field} = req.body;
        
-        if(!title  || !description || !problem || !solution  || !targetAudience){
+        if(!title  || !description || !problem || !solution  || !targetAudience || !field){
             return res.status(401).json({
                 success:false,
                 message:"somthing is missing.."
             })
         }
         
-            const file = req.file;
-            const fileUrl = getDataUri(file)
-            const cloudresponse = await cloudinary.uploader.upload(fileUrl.content)
+            // const file = req.file;
+            // const fileUrl = getDataUri(file)
+            // const cloudresponse = await cloudinary.uploader.upload(fileUrl.content)
 
      
        await Post.create({
@@ -28,9 +28,10 @@ const addPost = async(req,res)=>{
             problem,
             solution,
             targetAudience:targetAudience.split(","),
-            img:cloudresponse.secure_url,
+            field,
             
         });
+        
 
         return res.status(201).json({
             success:true,

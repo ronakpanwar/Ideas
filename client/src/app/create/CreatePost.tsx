@@ -18,7 +18,8 @@ interface post {
     problem: string,
     solution: string,
     targetAudience:string,
-    img?: File
+    img?: File,
+    field:string
 
 }
 
@@ -32,9 +33,10 @@ const CreatePost = () => {
         description: '',
         problem: '',
         solution: '',
-        targetAudience: ''
+        targetAudience: '',
+        field:''
     })
-    const [image, setImage] = useState<File | null>(null);
+    // const [image, setImage] = useState<File | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setData({
@@ -43,11 +45,11 @@ const CreatePost = () => {
         });
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setImage(e.target.files[0]);
-        }
-    };
+    // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     if (e.target.files) {
+    //         setImage(e.target.files[0]);
+    //     }
+    // };
 
 
     
@@ -60,13 +62,14 @@ const CreatePost = () => {
         formData.append("problem", data.problem);
         formData.append("solution", data.solution);
         formData.append("targetAudience", data.targetAudience);
-        if(image) formData.append("img", image);
+        formData.append("field" , data.field )
+        // if(image) formData.append("img", image);
         
 
         try {
             dispatch(setLoading(true));
 
-            const res = await axios.post('http://localhost:4000/api/post/add-post', formData,
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/post/add-post`, formData,
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -80,7 +83,7 @@ const CreatePost = () => {
 
             }
 
-        } catch (error: any) {
+        } catch (error:any) {
             toast.error(error?.response?.data?.message || "somthing is Wrong")
         } finally {
             dispatch(setLoading(false));
@@ -90,7 +93,8 @@ const CreatePost = () => {
             description: '',
             problem: '',
             solution: '',
-            targetAudience: ''
+            targetAudience: '',
+            field:''
         })
 
     }
@@ -158,7 +162,7 @@ const CreatePost = () => {
                             placeholder='students , Busness man'
                         />
                     </div>
-                    <div className='py-2'>
+                    {/* <div className='py-2'>
                         <Label htmlFor='img' className='font-bold text-lg '>Uplode Image</Label>
                         <Input
                             className='border-black border-2 w-full focus-visible:ring-1 focus-visible:ring-ring shadow-md'
@@ -167,6 +171,17 @@ const CreatePost = () => {
 
                         />
 
+                    </div> */}
+                    <div className='py-2'>
+                        <Label htmlFor='field' className='font-bold text-lg ' > Categories </Label>
+                        <Input
+                            className='border-zinc-800 rounded-md border-2  w-full focus-visible:ring-1 focus-visible:ring-ring shadow-md'
+                            type='text'
+                            name='field'
+                            value={data.field}
+                            onChange={handleChange}
+                            placeholder=" Tech , eCommerce , Finance , Education"
+                        />
                     </div>
 
                     <div className='text-center mb-10 mt-5'>

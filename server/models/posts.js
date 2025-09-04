@@ -10,6 +10,10 @@ const postSchema = new mongoose.Schema({
         type:String,
        
     },
+    field:{
+        type:String ,
+    }
+    ,
     title:{
         type:String,
         required:true,
@@ -36,7 +40,8 @@ const postSchema = new mongoose.Schema({
     }],
     views:{
         type:Number,
-    }
+    }, 
+  
     
 }, {timestamps:true});
 

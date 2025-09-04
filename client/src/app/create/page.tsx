@@ -13,7 +13,7 @@ const Page = () => {
     if(!user){
       router.push('/');
     }
-  } , [])
+  } , )
   
   return (
     <div>

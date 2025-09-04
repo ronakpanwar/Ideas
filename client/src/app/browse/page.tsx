@@ -11,7 +11,7 @@ const page = () => {
         <div>
             <IdeasBox/>
         </div>
-      Browse page
+      
     </div>
   )
 }

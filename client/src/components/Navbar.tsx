@@ -50,29 +50,29 @@ const Navbar = () => {
                     alt="Picture of the author" /></span>
                 <Link href={'/'}><h1> Ideas-<span className='text-orange-600 font-bold'>library</span></h1></Link>
             </div>
-            <div className='flex gap-2 items-center' >
-                <div className='flex gap-2'>
-                    <div>
-                        <Link href={'/'}><Button variant="ghost" className='font-bold'>
+            <div className='flex  md:gap-2 items-center' >
+                <div className='flex md:gap-2 '>
+                    <div className='md:block hidden'>
+                        <Link href={'/'}><Button variant="ghost" className='font-bold '>
                             Home
                         </Button> </Link>
                 </div>
                 <div>
                     <Link href={'/browse'}>
-                        <Button variant="ghost" className='font-bold'>
+                        <Button variant="ghost" className='font-bold '>
                             Browse Ideas
                         </Button></Link>
                 </div>
-                <div>
+                {/* <div>
                     <Link href={'/#'}><Button variant="ghost" className='font-bold'>
                         About
                     </Button></Link>
-                </div>
+                </div> */}
 
             </div>
             {user === null ? (
 
-                <div className='flex gap-2 md:gap-2 items-center'>
+                <div className='flex  md:gap-2 items-center'>
                     <div className=''>
                         <Link href={'/signin'}><Button variant="outline" className='bg-orange-600 hover:bg-orange-500 text-black '>
                             Sign In   </Button></Link>
@@ -84,8 +84,8 @@ const Navbar = () => {
 
                 </div>
             ) : (
-                <div className='flex gap-2 items-center '>
-                    <div>
+                <div className='flex  md:gap-2 items-center '>
+                    <div className=''>
                             <Button variant="ghost">
                                 <Link href={'/create'} className='font-bold  text-orange-600'> Post </Link>
                             </Button>
@@ -104,6 +104,10 @@ const Navbar = () => {
                                 <Link className='flex text-md my-1 items-center gap-2' href={'/profile'}> <span className='text-lg'><CgProfile /></span> Profile</Link>
                                 <hr />
                                 <button onClick={handleLogOut} className='flex gap-2 items-center my-1 text-sm'><LuLogOut className='text-lg font-bold' /> Log Out</button>
+
+                              
+                                <Link href={'/browce'}> </Link>
+                             
 
                             </PopoverContent>
                         </Popover>

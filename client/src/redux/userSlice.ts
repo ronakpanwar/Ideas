@@ -25,6 +25,7 @@ interface user {
      _id:string
       userId:user,
       title:string,
+      field:string,
       img:string,
       description:string,
       problem:string,
@@ -37,6 +38,7 @@ interface user {
     _id:string
      userId:string,
      title:string,
+     field:string
      img:string,
      description:string,
      problem:string,
