@@ -5,8 +5,9 @@ import { useSelector } from "react-redux"
 import { MdMessage } from "react-icons/md";
 import { LuTableOfContents } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
-import PostCard from "@/components/PostCards";
+
 import { useState } from "react";
+import UserPostCard from "@/components/UserPostCard";
 
 const UserPosts = () => {
 
@@ -41,7 +42,7 @@ const UserPosts = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     {
                         posts.length > 0 ? (posts.map((post) => (
-                            <PostCard key={post._id} post={post} check={false} />
+                            <UserPostCard key={post._id} post={post} check={false} />
                         ))) : (
                             <div className=" ">
                                 <h1 className="">Not Post Yet..</h1>
