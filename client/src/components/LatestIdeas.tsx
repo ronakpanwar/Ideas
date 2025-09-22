@@ -7,7 +7,7 @@ import PostCard from './PostCards'
 const LatestIdeas = () => {
     const post = useSelector((store:RootState) => store.user.posts);
    
-    const [postData , SetPostData] = useState([...post].reverse().slice(0,3));
+    const [postData] = useState([...post].reverse().slice(0,3));
 
 
   return (

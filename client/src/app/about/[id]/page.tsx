@@ -32,7 +32,7 @@ const Page = () => {
     const loading = useSelector((store: RootState) => store.user.loading);
 
     const { id } = useParams();
-    
+
     const dispatch = useDispatch<AppDispatch>()
 
     const [sendData, setSendData] = useState<data>({
@@ -41,40 +41,40 @@ const Page = () => {
     })
 
 
-    interface profile{
-  bio?:string,
-    img?:string ,
-    linkdinId?:string,
-    instaId?:string ,
-    twitterId?:string ,
-    gitId?:string ,
-}
+    interface profile {
+        bio?: string,
+        img?: string,
+        linkdinId?: string,
+        instaId?: string,
+        twitterId?: string,
+        gitId?: string,
+    }
 
     interface user {
-    _id:string,
-    name:string,
-    userName:string,
-    email:string , 
-    profile:profile,
-    password?:string,
-    createdAt?:Date,  
-    updatedAt?:Date
-  }
+        _id: string,
+        name: string,
+        userName: string,
+        email: string,
+        profile: profile,
+        password?: string,
+        createdAt?: Date,
+        updatedAt?: Date
+    }
 
-  interface post {
-     _id:string
-      userId:user,
-      title:string,
-      img:string,
-      description:string,
-      problem:string,
-      solution:string,
-      targetAudience:[],
-      createdAt?:Date,  
-      updatedAt?:Date
-  }
-   
-   const [post , setPost] = useState<post>();
+    interface post {
+        _id: string
+        userId: user,
+        title: string,
+        img: string,
+        description: string,
+        problem: string,
+        solution: string,
+        targetAudience: [],
+        createdAt?: Date,
+        updatedAt?: Date
+    }
+
+    const [post, setPost] = useState<post>();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setSendData({
@@ -86,62 +86,76 @@ const Page = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-           dispatch(setLoading(true));
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/message/send/${post?.userId?._id}` , sendData , {
+            dispatch(setLoading(true));
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/message/send/${post?.userId?._id}`, sendData, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 withCredentials: true
             })
 
-            if(res.data.success){
+            if (res.data.success) {
                 toast.success(res.data.message);
             }
 
-        } catch (error:any) {
-            toast.error(error?.response?.data?.message || "somthing is Wrong")
-        }finally{
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message || "Something went wrong");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Something went wrong");
+            }
+
+        } finally {
             dispatch(setLoading(false));
         }
         setSendData({
-            email:'',
-            msg:''
+            email: '',
+            msg: ''
         })
     }
 
-    const [loadingPost , setLoadingPost] = useState(false);
-    
+    const [loadingPost, setLoadingPost] = useState(false);
+
     useEffect(() => {
         const getPost = async () => {
-            try { 
+            try {
                 setLoadingPost(true);
                 const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/post/${id}`);
                 if (res.data.success) {
                     // dispatch(setSelectedPost(res.data.post));
                     setPost(res.data.post);
                 }
-            } catch (error: any) {
-                console.log(error)
-            }finally{
+            } catch (error: unknown) {
+                if (axios.isAxiosError(error)) {
+                    toast.error(error.response?.data?.message || "Something went wrong");
+                } else if (error instanceof Error) {
+                    toast.error(error.message);
+                } else {
+                    toast.error("Something went wrong");
+                }
+
+            } finally {
                 setLoadingPost(false);
             }
 
         }
         getPost();
     }, [id])
-   
-    if(loadingPost){
-         return (
-    <div className="flex items-center justify-center min-h-screen">
-      <Loader2 className="animate-spin w-8 h-8 text-gray-700" />
-      <span className="ml-2 text-gray-600">Loading post...</span>
-    </div>
-  );
+
+    if (loadingPost) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <Loader2 className="animate-spin w-8 h-8 text-gray-700" />
+                <span className="ml-2 text-gray-600">Loading post...</span>
+            </div>
+        );
     }
-    
+
 
     return (
-         
+
         <div className='flex items-center justify-center px-5 md:px-10'>
             <div className='w-[90%] md:w-3/4'>
                 {/* <div>
@@ -261,8 +275,8 @@ const Page = () => {
                     </div>
                 </div>
             </div>
-        </div> 
-    
+        </div>
+
     )
 }
 

@@ -17,9 +17,9 @@ interface post {
     description: string,
     problem: string,
     solution: string,
-    targetAudience:string,
+    targetAudience: string,
     img?: File,
-    field:string
+    field: string
 
 }
 
@@ -34,7 +34,7 @@ const CreatePost = () => {
         problem: '',
         solution: '',
         targetAudience: '',
-        field:''
+        field: ''
     })
     // const [image, setImage] = useState<File | null>(null);
 
@@ -52,7 +52,7 @@ const CreatePost = () => {
     // };
 
 
-    
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -62,9 +62,9 @@ const CreatePost = () => {
         formData.append("problem", data.problem);
         formData.append("solution", data.solution);
         formData.append("targetAudience", data.targetAudience);
-        formData.append("field" , data.field )
+        formData.append("field", data.field)
         // if(image) formData.append("img", image);
-        
+
 
         try {
             dispatch(setLoading(true));
@@ -83,8 +83,15 @@ const CreatePost = () => {
 
             }
 
-        } catch (error:any) {
-            toast.error(error?.response?.data?.message || "somthing is Wrong")
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message || "Something went wrong");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Something went wrong");
+            }
+
         } finally {
             dispatch(setLoading(false));
         }
@@ -94,18 +101,18 @@ const CreatePost = () => {
             problem: '',
             solution: '',
             targetAudience: '',
-            field:''
+            field: ''
         })
 
     }
-   
+
 
 
 
     return (
         <div className='flex  justify-center mt-10'>
             <div className='w-3/4 md:w-1/2'>
-                <h1 className= 'text-2xl md:text-4xl text-center mb-6'>Share your ideas with us...</h1>
+                <h1 className='text-2xl md:text-4xl text-center mb-6'>Share your ideas with us...</h1>
                 <form action="" onSubmit={handleSubmit} className='text-3xl'>
                     <div className='py-2'>
                         <Label htmlFor='title' className='font-bold text-lg ' > Title </Label>

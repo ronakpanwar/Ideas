@@ -91,8 +91,15 @@ const UserProfile = () => {
                 dispatch(setUser(res.data.user));
             }
 
-        } catch (error: any) {
-            toast.error(error?.response?.data?.message || "somthing is Wrong")
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message || "Something went wrong");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Something went wrong");
+            }
+
         } finally {
             dispatch(setLoading(false));
         }

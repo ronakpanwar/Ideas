@@ -20,7 +20,7 @@ const IdeasBox = () => {
                     dispatch(setPosts(res.data.posts));
                     setPostData(res.data.posts)
                 }
-            } catch (error: any) {
+            } catch (error:unknown) {
                 console.log(error)
             }
         }

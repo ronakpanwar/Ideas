@@ -21,9 +21,9 @@ interface Data {
 const SignIn = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
-  
+
     const router = useRouter();
-   const dispatch = useDispatch<AppDispatch>()
+    const dispatch = useDispatch<AppDispatch>()
 
     const [data, setData] = useState<Data>({
         email: '',
@@ -55,16 +55,24 @@ const SignIn = () => {
                 console.log(res.data.user);
             }
 
-        } catch (error: any) {
-            toast.error(error?.response?.data?.message || "somthing is Wrong");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message || "Something went wrong");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Something went wrong");
+            }
+
         } finally {
             setLoading(false);
         }
     }
-     
 
-  return (
-     <div className='h-screen flex items-center justify-center '>
+
+
+    return (
+        <div className='h-screen flex items-center justify-center '>
             <div className='flex flex-col gap-4  w-96 border-2 border-zinc-300 shadow-lg py-10 px-10 rounded-3xl'>
                 <h1 className=' text-center text-3xl mx-4 mb-6 font-bold'>Welcome back </h1>
                 <form action="" onSubmit={handleSubmit}>
@@ -85,7 +93,7 @@ const SignIn = () => {
                 </div>
             </div>
         </div>
-  )
+    )
 }
 
 export default SignIn

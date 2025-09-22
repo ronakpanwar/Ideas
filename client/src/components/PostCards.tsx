@@ -5,8 +5,49 @@ import temp from './temp.jpg'
 import { Button } from './ui/button'
 import { useRouter } from 'next/navigation'
 // import { Badge } from './ui/badge'
+interface profile{
+  bio?:string,
+    img?:string ,
+    linkdinId?:string,
+    instaId?:string ,
+    twitterId?:string ,
+    gitId?:string ,
+}
 
-const PostCard = ({post , check}) => {
+interface user {
+    _id:string,
+    name:string,
+    userName:string,
+    email:string , 
+    profile:profile,
+    password?:string,
+    createdAt?:Date,  
+    updatedAt?:Date
+  }
+
+  interface post {
+     _id:string
+      userId:user,
+      title:string,
+      field:string,
+      img:string,
+      description:string,
+      problem:string,
+      solution:string,
+      targetAudience:[],
+      createdAt?:Date,  
+      updatedAt?:Date
+  }
+
+  
+type PostCardProps = {
+  post: post;
+  check: boolean;
+};
+
+
+
+const PostCard = ({post , check}:PostCardProps) => {
    
   const router = useRouter();
 

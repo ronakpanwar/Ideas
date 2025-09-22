@@ -48,44 +48,51 @@ const SignUp = () => {
             })
             if (res.data.success) {
                 toast.success(res.data.message);
-               router.push('/signin');
+                router.push('/signin');
             }
 
-        } catch (error: any) {
-            toast.error(error?.response?.data?.message || "somthing is Wrong");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message || "Something went wrong");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Something went wrong");
+            }
+
         } finally {
             setLoading(false);
         }
     }
-  return (
-    <div className='h-screen flex items-center justify-center '>
-    <div className='flex flex-col gap-4  w-96 border-2 border-zinc-300 shadow-lg py-10 px-10 rounded-3xl'>
-        <h1 className=' text-center text-3xl mx-4 mb-6 font-bold'>Lets Join Us  </h1>
-        <form action="" onSubmit={handleSubmit}>
+    return (
+        <div className='h-screen flex items-center justify-center '>
+            <div className='flex flex-col gap-4  w-96 border-2 border-zinc-300 shadow-lg py-10 px-10 rounded-3xl'>
+                <h1 className=' text-center text-3xl mx-4 mb-6 font-bold'>Lets Join Us  </h1>
+                <form action="" onSubmit={handleSubmit}>
 
-            <div className='flex flex-col gap-4'>
-                <Input className='w-full focus-visible:border-2 focus-visible:border-slate-600 shadow-sm' type='text' placeholder='Name' name='name' value={data.name} onChange={handleChange} />
+                    <div className='flex flex-col gap-4'>
+                        <Input className='w-full focus-visible:border-2 focus-visible:border-slate-600 shadow-sm' type='text' placeholder='Name' name='name' value={data.name} onChange={handleChange} />
 
-                <Input className='w-full focus-visible:border-2 focus-visible:border-slate-600 shadow-sm' type='text' placeholder='User Name' name='userName' value={data.userName} onChange={handleChange} />
+                        <Input className='w-full focus-visible:border-2 focus-visible:border-slate-600 shadow-sm' type='text' placeholder='User Name' name='userName' value={data.userName} onChange={handleChange} />
 
-                <Input className='w-full focus-visible:border-2 focus-visible:border-slate-600 shadow-sm' type='email' placeholder='Email' name='email' value={data.email} onChange={handleChange} />
+                        <Input className='w-full focus-visible:border-2 focus-visible:border-slate-600 shadow-sm' type='email' placeholder='Email' name='email' value={data.email} onChange={handleChange} />
 
-                <Input className='w-full focus-visible:border-2 focus-visible:border-slate-600 shadow-sm' type='password' placeholder='password' name='password' value={data.password} onChange={handleChange} />
+                        <Input className='w-full focus-visible:border-2 focus-visible:border-slate-600 shadow-sm' type='password' placeholder='password' name='password' value={data.password} onChange={handleChange} />
 
+                    </div>
+                    <div className='mt-6'>
+                        <Button type='submit' disabled={loading} className='w-full'>
+                            {loading ? <Loader2 className="animate-spin" /> : 'Sign Up'}
+
+                        </Button>
+                    </div>
+                </form>
+                <div className='text-sm'>
+                    <p>Already have account... <Link href={'/signin'} className='text-orange-600 underline'> SignIn</Link> </p>
+                </div>
             </div>
-            <div className='mt-6'>
-                <Button type='submit' disabled={loading} className='w-full'>
-                    {loading ? <Loader2 className="animate-spin" /> : 'Sign Up'}
-
-                </Button>
-            </div>
-        </form>
-        <div className='text-sm'>
-            <p>Already have account... <Link href={'/signin'} className='text-orange-600 underline'> SignIn</Link> </p>
         </div>
-    </div>
-</div>
-  )
+    )
 }
 
 export default SignUp
